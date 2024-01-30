@@ -26,7 +26,7 @@ while True:
         rostro = cv2.resize(rostro, (150, 150), interpolation=cv2.INTER_CUBIC)
         result = face_recognizer.predict(rostro)
 
-        print("sesultado", result[1])
+        print("resultado", result[1])
 
 
         if result[1] < 100:
