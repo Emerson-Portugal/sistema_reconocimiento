@@ -1,4 +1,3 @@
-## entrenamiento.py
 import cv2
 import os
 import numpy as np
@@ -11,19 +10,17 @@ facesData = []
 label = 0
 
 for nameDir in peopleList:
-    personPath = dataPath + '/' + nameDir
+    personPath = os.path.join(dataPath, nameDir)
 
     for fileName in os.listdir(personPath):
         labels.append(label)
-        facesData.append(cv2.imread(personPath + '/' + fileName, 0))
-        image = cv2.imread(personPath + '/' + fileName, 0)  # Este valor no se está utilizando en el entrenamiento
+        image = cv2.imread(os.path.join(personPath, fileName), cv2.IMREAD_GRAYSCALE)
+        facesData.append(image)
 
-    label = label + 1
+    label += 1
 
-
-# Use cv2.face.createEigenFaceRecognizer() for both OpenCV 3.x and 4.x
 face_recognizer = cv2.face.LBPHFaceRecognizer_create()
 
 print("Training....")
 face_recognizer.train(facesData, np.array(labels))
-face_recognizer.write('ModelFaceFrontaData.xml')
+face_recognizer.write('ModelFaceFrontaDataTest.xml')
